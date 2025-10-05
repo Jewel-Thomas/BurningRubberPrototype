@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: aafffbfc428a741b181d82ad346dc7b2
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CSR2_InteriorA
+    second: {fileID: 2100000, guid: 94482d1b32d2643c8b51c2ac876aa5cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CSR2_Wheel1A_Rim
+    second: {fileID: 2100000, guid: 510c0859f6da04b2eba40dcf2993dd08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RRViper_turbo_black
+    second: {fileID: 2100000, guid: 4549b94894c014e4bb7f8a6bf694b0e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RRViper_turbo_chrome
+    second: {fileID: 2100000, guid: 513b8f68f089648fc88edee9946f4637, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RRViper_turbo_matblack
+    second: {fileID: 2100000, guid: ece8fd247a0b145cfa6a693ab45f1efb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RRViper_turbo_painted2
+    second: {fileID: 2100000, guid: ca2f0134e718f43499e8f2152f5d607d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Scene_-_Root.002
+    second: {fileID: 2100000, guid: 0fcf0686aea554992869fa3f58fe4766, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Viper_Badge
+    second: {fileID: 2100000, guid: 80374206a61d745829aabdafc66f99dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: amdb11_badging.002
+    second: {fileID: 2100000, guid: 0f9ab9ef2c9d942a7bf7f0171753a640, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: amdb11_brake.002
+    second: {fileID: 2100000, guid: 1ab6c6a8823a946fcbbc838d094863ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: amdb11_caliper.002
+    second: {fileID: 2100000, guid: e6c276fd592064de3b57b37ad26c458a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: amdb11_misc.002
+    second: {fileID: 2100000, guid: a01e9f562537647629d2e6255b560843, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: amdb11_misc_chrome.002
+    second: {fileID: 2100000, guid: 7bc85ec03e59f46a8ba9a63c48e4fa1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_chmsl
+    second: {fileID: 2100000, guid: 24a42d4c70cfc45d2848795620aa2877, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_drl
+    second: {fileID: 2100000, guid: c995dc6cfdda044bba3503077d0f7c70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_highbeam
+    second: {fileID: 2100000, guid: 62b820dfaf97c4eed9766c8de866ecd6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_lowbeam
+    second: {fileID: 2100000, guid: 6d1ad3c66d5134f63923f7339556fc1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_reverselight
+    second: {fileID: 2100000, guid: 1f14ed379cdc34b22afc1e191d8a1469, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_signal_L
+    second: {fileID: 2100000, guid: a3251adc8896045e7a6176d2c7eb9df3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gavril_taillight_lowhighbeam_L
+    second: {fileID: 2100000, guid: f74905fb78e504c3384663ff867586ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pickup
+    second: {fileID: 2100000, guid: 973770e28180741ab96b3f2160ece1da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pickup_glass
+    second: {fileID: 2100000, guid: 47287117696c6486ea72f19dca2c3012, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pickup_glass_int
+    second: {fileID: 2100000, guid: 2066711c191a3415aa814f2f5da47a09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pickup_reverselightglass
+    second: {fileID: 2100000, guid: 23613ef0221d84e97af023dd9ec129d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pickup_signalglass_R
+    second: {fileID: 2100000, guid: 3b3ee3d50d28f45819a8ab1157b39384, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pickup_taillightglass_L
+    second: {fileID: 2100000, guid: d756de9e7d2ad455b8af0da701f9b560, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: srtviper_screen
+    second: {fileID: 2100000, guid: 400d961fa03e24caca4b92f3d278fce7, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
