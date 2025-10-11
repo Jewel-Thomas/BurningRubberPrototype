@@ -49,8 +49,8 @@ public class CarController : MonoBehaviour
     // TODO: Get input using the new Input System. Doing this only for initiating functionality.
     private void GetInput()
     {
-        gasInput = Input.GetAxis("Vertical");
-        steeringInput = Input.GetAxis("Horizontal");
+        gasInput = GameInput.Instance.CarMovementInputNormalized().y;
+        steeringInput = GameInput.Instance.CarMovementInputNormalized().x;
     }
 
     private void Accelerate()
