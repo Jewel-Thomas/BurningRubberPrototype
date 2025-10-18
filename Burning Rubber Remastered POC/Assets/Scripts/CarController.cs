@@ -9,12 +9,12 @@ public class CarController : MonoBehaviour
     [SerializeField] private WheelColliders wheelColliders;
     [SerializeField] private WheelMeshes wheelMeshes;
 
-    [SerializeField] private float gasInput;
-    [SerializeField] private float steeringInput;
-    [SerializeField] private float brakeInput;
     [SerializeField] private AnimationCurve speedVsAngleCurve;
     [SerializeField] private bool isReversing;
 
+    private float gasInput;
+    private float steeringInput;
+    private float brakeInput;
     private float speed;
 
     private enum DriveMode
@@ -96,6 +96,10 @@ public class CarController : MonoBehaviour
             {
                 brakeInput = Mathf.Abs(gasInput);
                 gasInput = 0;
+            }
+            else
+            {
+                brakeInput = 0;
             }
             return false;
         }
