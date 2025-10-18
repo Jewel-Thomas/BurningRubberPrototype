@@ -1732,9 +1732,6 @@ MonoBehaviour:
     frontRightWheelMesh: {fileID: 4542737051164089240}
     rearLeftWheelMesh: {fileID: 5302959570204066672}
     rearRightWheelMesh: {fileID: 8481168706454158478}
-  gasInput: 0
-  steeringInput: 0
-  brakeInput: 0
   speedVsAngleCurve:
     serializedVersion: 2
     m_Curve:
