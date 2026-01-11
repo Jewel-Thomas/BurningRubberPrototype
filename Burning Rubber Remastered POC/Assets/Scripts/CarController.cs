@@ -15,6 +15,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private bool isReversing;
     [SerializeField] private float slipAllowance = 0.1f;
 
+    [SerializeField] private GameObject steeringWheel;
+
     private float gasInput;
     private float steeringInput;
     private float brakeInput;
@@ -101,6 +103,7 @@ public class CarController : MonoBehaviour
         float steeringAngle = speedVsAngleCurve.Evaluate(speed) * steeringInput;
         wheelColliders.frontLeftWheelCollider.steerAngle = steeringAngle;
         wheelColliders.frontRightWheelCollider.steerAngle = steeringAngle;
+        steeringWheel.transform.localRotation = Quaternion.Euler(0, steeringAngle, 0);
     }
 
     private bool IsReversing()
