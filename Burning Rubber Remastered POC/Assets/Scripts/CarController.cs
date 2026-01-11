@@ -41,6 +41,15 @@ public class CarController : MonoBehaviour
     [SerializeField] private float rearLeftSlip;
     [SerializeField] private float rearRightSlip;
 
+
+    [Space]
+    [Header("Work In Progress")]
+    // RPM
+    [SerializeField] private float rPM;
+    [SerializeField] private float idleRPM;
+    [SerializeField] private float maxRPM;
+    [SerializeField] private RPMGuage rpmGuage;
+
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -57,6 +66,8 @@ public class CarController : MonoBehaviour
         speed = playerRb.velocity.magnitude;
         GetInput();
         isReversing = IsReversing();
+
+        rpmGuage.UpdateGuageVisual(rPM, maxRPM);
         Accelerate();
         Steer();
         Brake();
