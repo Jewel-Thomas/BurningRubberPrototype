@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
+
     private InputActions inputActions;
     private Vector2 inputVector;
     private float smoothTime = 10;
+    private bool isClutchApplied;
 
     private enum InputSystemType
     {
@@ -24,6 +25,21 @@ public class GameInput : MonoBehaviour
         inputActions = new InputActions();
 
         inputActions.Car.Enable();
+    }
+
+    private void Update()
+    {
+        UpdateClutchApplied();
+    }
+
+    public void UpdateClutchApplied()
+    {
+        isClutchApplied = inputActions.Car.Clutch.IsPressed();
+    }
+
+    public bool IsClutchApplied()
+    {
+        return isClutchApplied;
     }
 
     public Vector2 CarMovementInputNormalized()

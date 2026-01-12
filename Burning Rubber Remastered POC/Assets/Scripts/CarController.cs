@@ -49,6 +49,11 @@ public class CarController : MonoBehaviour
     [SerializeField] private float idleRPM;
     [SerializeField] private float maxRPM;
     [SerializeField] private RPMGuage rpmGuage;
+    [SerializeField] private float[] gearRatios;
+    [SerializeField] private float differentialRatio;
+    [SerializeField] private float currentTorque;
+    [SerializeField] private float wheelRPM;
+    [SerializeField] private AnimationCurve hpToRPMCurve;
 
     private void Awake()
     {
@@ -66,7 +71,7 @@ public class CarController : MonoBehaviour
         speed = playerRb.velocity.magnitude;
         GetInput();
         isReversing = IsReversing();
-
+        if (GameInput.Instance.IsClutchApplied()) GetClutchValue();
         rpmGuage.UpdateGuageVisual(rPM, maxRPM);
         Accelerate();
         Steer();
@@ -75,7 +80,6 @@ public class CarController : MonoBehaviour
         UpdateAllWheels();
     }
 
-    // TODO: Get input using the new Input System. Doing this only for initiating functionality.
     private void GetInput()
     {
         gasInput = GameInput.Instance.CarMovementInputNormalized().y;
@@ -177,6 +181,11 @@ public class CarController : MonoBehaviour
             if (wheelSmoke.isPlaying)
                 wheelSmoke.Stop();
         }
+    }
+
+    private void GetClutchValue()
+    {
+        Debug.Log("Testing Event Functionality"); 
     }
 
     private void UpdateAllWheels()
