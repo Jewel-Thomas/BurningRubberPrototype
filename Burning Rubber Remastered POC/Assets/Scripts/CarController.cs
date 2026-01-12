@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CarController : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class CarController : MonoBehaviour
     [SerializeField] private float motorPower;
     [SerializeField] private float brakePower;
     [SerializeField] private DriveMode driveMode;
+    private WheelCollider[] rearWheels;
+    private WheelCollider[] frontWheels;
+    private WheelCollider[] allWheels;
 
     // Debug
     [SerializeField] private float frontLeftSlip;
@@ -50,6 +54,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float maxRPM;
     [SerializeField] private RPMGuage rpmGuage;
     [SerializeField] private float[] gearRatios;
+    [SerializeField] private int currentGear;
     [SerializeField] private float differentialRatio;
     [SerializeField] private float currentTorque;
     [SerializeField] private float clutch;
@@ -59,6 +64,26 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
+
+        rearWheels = new WheelCollider[]
+        {
+            wheelColliders.rearLeftWheelCollider,
+            wheelColliders.rearRightWheelCollider
+        };
+
+        frontWheels = new WheelCollider[]
+        {
+            wheelColliders.frontLeftWheelCollider,
+            wheelColliders.frontRightWheelCollider
+        };
+
+        allWheels = new WheelCollider[]
+        {
+            wheelColliders.frontLeftWheelCollider,
+            wheelColliders.frontRightWheelCollider,
+            wheelColliders.rearLeftWheelCollider,
+            wheelColliders.rearRightWheelCollider
+        };
     }
 
     private void Start()
@@ -89,34 +114,59 @@ public class CarController : MonoBehaviour
 
     private void GetClutchValue()
     {
-        clutch = GameInput.Instance.IsClutchApplied() ? 0 : clutch = Mathf.Lerp(clutch, 1, Time.deltaTime);
+        clutch = GameInput.Instance.IsClutchApplied() ? 0 :
+                 clutch = Mathf.Lerp(clutch, 1, Time.deltaTime);
     }
 
     private void Accelerate()
     {
-        switch(driveMode)
+        switch (driveMode)
         {
             default:
             case DriveMode.Rear_Wheel_Drive:
-                AccelerateWheel(wheelColliders.rearLeftWheelCollider);
-                AccelerateWheel(wheelColliders.rearRightWheelCollider);
+                AccelerateWheel(rearWheels);
                 break;
             case DriveMode.Front_Wheel_Drive:
-                AccelerateWheel(wheelColliders.frontLeftWheelCollider);
-                AccelerateWheel(wheelColliders.frontRightWheelCollider);
+                AccelerateWheel(frontWheels);
                 break;
             case DriveMode.All_Wheel_Drive:
-                AccelerateWheel(wheelColliders.rearLeftWheelCollider);
-                AccelerateWheel(wheelColliders.rearRightWheelCollider);
-                AccelerateWheel(wheelColliders.frontLeftWheelCollider);
-                AccelerateWheel(wheelColliders.frontRightWheelCollider);
+                AccelerateWheel(allWheels);
                 break;
         }
     }
 
-    private void AccelerateWheel(WheelCollider wheelCollider)
+    private void AccelerateWheel(WheelCollider[] wheelColliders)
     {
-        wheelCollider.motorTorque = motorPower * gasInput;
+        currentTorque = CalculateTorque(wheelColliders);
+        foreach (WheelCollider wheelCollider in wheelColliders)
+        {
+            wheelCollider.motorTorque = currentTorque * gasInput;
+        }
+    }
+
+    private float CalculateTorque(WheelCollider[] wheelColliders)
+    {
+        float torque = 0;
+        // TODO : Implement engine running check.
+        if(clutch < 0.1f)
+        {
+            rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM, maxRPM * gasInput + Random.Range(-50, 50)), Time.deltaTime);
+        }
+        else
+        {
+            float sumWheelRPM = 0;
+            foreach(WheelCollider wheelCollider in wheelColliders)
+            {
+                sumWheelRPM += wheelCollider.rpm;
+            }
+            wheelRPM = Mathf.Abs(sumWheelRPM / wheelColliders.Length) * gearRatios[currentGear] * differentialRatio;
+            rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime * 3);
+        }
+
+        torque = (hpToRPMCurve.Evaluate(rPM / maxRPM) * motorPower / rPM) *
+                gearRatios[currentGear] * differentialRatio * 5252f * clutch;
+
+        return torque;
     }
 
     private void Steer()
