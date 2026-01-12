@@ -52,6 +52,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float[] gearRatios;
     [SerializeField] private float differentialRatio;
     [SerializeField] private float currentTorque;
+    [SerializeField] private float clutch;
     [SerializeField] private float wheelRPM;
     [SerializeField] private AnimationCurve hpToRPMCurve;
 
@@ -71,7 +72,7 @@ public class CarController : MonoBehaviour
         speed = playerRb.velocity.magnitude;
         GetInput();
         isReversing = IsReversing();
-        if (GameInput.Instance.IsClutchApplied()) GetClutchValue();
+        GetClutchValue();
         rpmGuage.UpdateGuageVisual(rPM, maxRPM);
         Accelerate();
         Steer();
@@ -84,6 +85,11 @@ public class CarController : MonoBehaviour
     {
         gasInput = GameInput.Instance.CarMovementInputNormalized().y;
         steeringInput = GameInput.Instance.CarMovementInputNormalized().x;
+    }
+
+    private void GetClutchValue()
+    {
+        clutch = GameInput.Instance.IsClutchApplied() ? 0 : clutch = Mathf.Lerp(clutch, 1, Time.deltaTime);
     }
 
     private void Accelerate()
@@ -181,11 +187,6 @@ public class CarController : MonoBehaviour
             if (wheelSmoke.isPlaying)
                 wheelSmoke.Stop();
         }
-    }
-
-    private void GetClutchValue()
-    {
-        Debug.Log("Testing Event Functionality"); 
     }
 
     private void UpdateAllWheels()
