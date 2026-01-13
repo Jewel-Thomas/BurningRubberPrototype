@@ -14,6 +14,6 @@ public class RPMGuage : Guage
 
     private void UpdateGearVisual(int currentGear)
     {
-        gearText.text = currentGear.ToString();
+        gearText.text = (currentGear + 1).ToString();
     }
 }

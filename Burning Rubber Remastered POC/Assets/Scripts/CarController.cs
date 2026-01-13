@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -61,6 +62,19 @@ public class CarController : MonoBehaviour
     [SerializeField] private float wheelRPM;
     [SerializeField] private AnimationCurve hpToRPMCurve;
 
+    public enum GearState
+    {
+        NEUTRAL,
+        RUNNING,
+        CHECKING,
+        CHANGING
+    };
+
+    public GearState gearState;
+    [SerializeField] private float increaseGearRPM;
+    [SerializeField] private float decreaseGearRPM;
+    [SerializeField] private float gearChangeTime = 0.5f;
+
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -90,6 +104,7 @@ public class CarController : MonoBehaviour
     {
         wheelRadius = wheelColliders.frontLeftWheelCollider.radius;
         InstantiateSmoke();
+        gearState = GearState.RUNNING;
     }
 
     private void Update()
@@ -98,7 +113,7 @@ public class CarController : MonoBehaviour
         GetInput();
         isReversing = IsReversing();
         GetClutchValue();
-        rpmGuage.UpdateGuageVisual(rPM, maxRPM);
+        rpmGuage.UpdateGuageVisual(rPM, maxRPM, currentGear);
         Accelerate();
         Steer();
         Brake();
@@ -114,8 +129,15 @@ public class CarController : MonoBehaviour
 
     private void GetClutchValue()
     {
-        clutch = GameInput.Instance.IsClutchApplied() ? 0 :
-                 clutch = Mathf.Lerp(clutch, 1, Time.deltaTime);
+        if(gearState != GearState.CHANGING)
+        {
+            clutch = GameInput.Instance.IsClutchApplied() ? 0 :
+                     clutch = Mathf.Lerp(clutch, 1, Time.deltaTime);
+        }
+        else
+        {
+            clutch = 0;
+        }
     }
 
     private void Accelerate()
@@ -148,7 +170,19 @@ public class CarController : MonoBehaviour
     {
         float torque = 0;
         // TODO : Implement engine running check.
-        if(clutch < 0.1f)
+        if (gearState == GearState.RUNNING && clutch > 0)
+        {
+            if (rPM > increaseGearRPM)
+            {
+                StartCoroutine(ChangeGear(1));
+            }
+            else if (rPM < decreaseGearRPM)
+            {
+                StartCoroutine(ChangeGear(-1));
+            }
+        }
+
+        if (clutch < 0.1f)
         {
             rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM, maxRPM * gasInput + Random.Range(-50, 50)), Time.deltaTime);
         }
@@ -267,6 +301,38 @@ public class CarController : MonoBehaviour
         coll.GetWorldPose(out pos, out quat);
         mesh.transform.position = pos;
         mesh.transform.rotation = quat;
+    }
+
+    private IEnumerator ChangeGear(int gearChange)
+    {
+        gearState = GearState.CHECKING;
+        if(currentGear + gearChange >= 0)
+        {
+            if(gearChange > 0)
+            {
+                yield return new WaitForSeconds(0.7f);
+                if(rPM < increaseGearRPM || currentGear >= gearRatios.Length - 1)
+                {
+                    gearState = GearState.RUNNING;
+                    yield break;
+                }
+            }
+            if(gearChange < 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+                if(rPM > decreaseGearRPM || currentGear <= 0)
+                {
+                    gearState = GearState.RUNNING;
+                    yield break;
+                }
+            }
+
+            gearState = GearState.CHANGING;
+            yield return new WaitForSeconds(gearChangeTime);
+            currentGear += gearChange;
+        }
+        
+        gearState = GearState.RUNNING;
     }
 }
 

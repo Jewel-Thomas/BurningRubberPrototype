@@ -22,6 +22,6 @@ public class Guage : MonoBehaviour
 
     private void UpdateGuageValue(TextMeshProUGUI valueText, float currentValue)
     {
-        valueText.text = Mathf.RoundToInt(currentValue).ToString();
+        valueText.text = Mathf.RoundToInt(currentValue).ToString("0,000");
     }
 }
