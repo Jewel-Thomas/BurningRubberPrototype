@@ -61,6 +61,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float clutch;
     [SerializeField] private float wheelRPM;
     [SerializeField] private AnimationCurve hpToRPMCurve;
+    public int isEngineRunning;
 
     public enum GearState
     {
@@ -125,6 +126,12 @@ public class CarController : MonoBehaviour
     {
         gasInput = GameInput.Instance.CarMovementInputNormalized().y;
         steeringInput = GameInput.Instance.CarMovementInputNormalized().x;
+
+        if (Mathf.Abs(gasInput) > 0 && isEngineRunning == 0)
+        {
+            StartCoroutine(GetComponent<EngineAudio>().StartEngine());
+            gearState = GearState.RUNNING;
+        }
     }
 
     private void GetClutchValue()
@@ -182,23 +189,27 @@ public class CarController : MonoBehaviour
             }
         }
 
-        if (clutch < 0.1f)
+        if(isEngineRunning > 0)
         {
-            rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM, maxRPM * gasInput + Random.Range(-50, 50)), Time.deltaTime);
-        }
-        else
-        {
-            float sumWheelRPM = 0;
-            foreach(WheelCollider wheelCollider in wheelColliders)
+            if (clutch < 0.1f)
             {
-                sumWheelRPM += wheelCollider.rpm;
+                rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM, maxRPM * gasInput + Random.Range(-50, 50)), Time.deltaTime);
             }
-            wheelRPM = Mathf.Abs(sumWheelRPM / wheelColliders.Length) * gearRatios[currentGear] * differentialRatio;
-            rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime * 3);
+            else
+            {
+                float sumWheelRPM = 0;
+                foreach(WheelCollider wheelCollider in wheelColliders)
+                {
+                    sumWheelRPM += wheelCollider.rpm;
+                }
+                wheelRPM = Mathf.Abs(sumWheelRPM / wheelColliders.Length) * gearRatios[currentGear] * differentialRatio;
+                rPM = Mathf.Lerp(rPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime * 3);
+                torque = (hpToRPMCurve.Evaluate(rPM / maxRPM) * motorPower / rPM) *
+                        gearRatios[currentGear] * differentialRatio * 5252f * clutch;
+            }
+
         }
 
-        torque = (hpToRPMCurve.Evaluate(rPM / maxRPM) * motorPower / rPM) *
-                gearRatios[currentGear] * differentialRatio * 5252f * clutch;
 
         return torque;
     }
@@ -291,6 +302,12 @@ public class CarController : MonoBehaviour
             Quaternion.identity, wheelColliders.rearLeftWheelCollider.transform).GetComponent<ParticleSystem>();
         wheelSmoke.rearRightSmoke = Instantiate(smokePrefabTransform.gameObject, wheelColliders.rearRightWheelCollider.transform.position - Vector3.up * wheelRadius,
             Quaternion.identity, wheelColliders.rearRightWheelCollider.transform).GetComponent<ParticleSystem>();
+    }
+
+    public float GetSpeedRatio()
+    {
+        var gas = Mathf.Clamp(Mathf.Abs(gasInput), 0.5f, 1f);
+        return rPM * gas / maxRPM;
     }
 
     private void UpdateWheel(WheelCollider coll, MeshRenderer mesh)

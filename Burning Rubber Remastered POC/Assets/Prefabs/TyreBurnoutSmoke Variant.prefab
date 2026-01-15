@@ -53,8 +53,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -79,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
       value: 0.14150941
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19900000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 3}
       propertyPath: m_Materials.Array.size
